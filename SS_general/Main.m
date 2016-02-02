@@ -176,7 +176,7 @@ case 2
     fprintf(f,'\n');
     fprintf(f,'%s %8i\n','CELL_TYPES', nelem);
     for i1=1:nelem
-    fprintf(f,' %4i ', 7);
+    fprintf(f,' %4i ', 22);
     end
     fprintf(f,'\n');        
 case 3
@@ -198,7 +198,7 @@ case 4
     fprintf(f,'\n');
     fprintf(f,'%s %8i\n','CELL_TYPES', nelem);
     for i1=1:nelem
-    fprintf(f,' %4i ', 7);
+    fprintf(f,' %4i ', 23);
     end
     fprintf(f,'\n');   
 end
