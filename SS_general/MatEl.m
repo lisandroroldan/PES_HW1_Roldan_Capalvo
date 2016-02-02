@@ -21,7 +21,8 @@ ngaus = size(pospg,2);
  
 % Loop on Gauss points (computation of integrals on the current element)
 for igaus = 1:ngaus 
-    N_igaus = N(igaus,:);  
+    
+    N_igaus = N(:,igaus)';   %%originally N_igaus = N(igaus,:); 
     Nxi_igaus = dNdxi(2*igaus-1,:);   
     Neta_igaus = dNdxi(2*igaus,:);   
     Jacob = [Nxi_igaus*(Xe(:,1))	Nxi_igaus*(Xe(:,2))   
