@@ -53,22 +53,22 @@ case 4
 case 5
     Xa = load('nodes_3D_tri_lin');
     X=Xa(:,2:4);
-    Ta = load('elem_3D_tri_lin');
+    Ta = load('elm_3D_tri_lin');
     T=Ta(:,2:5);
 case 6
     Xa = load('nodes_3D_tri_quad');
     X=Xa(:,2:4);
-    Ta = load('elem_3D_tri_quad');
+    Ta = load('elm_3D_tri_quad');
     T=Ta(:,2:11);
 case 7
     Xa = load('nodes_3D_quad_lin');
     X=Xa(:,2:4);
-    Ta = load('elem_3D_quad_lin');
+    Ta = load('elm_3D_quad_lin');
     T=Ta(:,2:9);
 case 8
     Xa = load('nodes_3D_quad_quad');
     X=Xa(:,2:4);
-    Ta = load('elem_3D_quad_quad');
+    Ta = load('elm_3D_quad_quad');
     T=Ta(:,2:16);  
 otherwise
     disp('Error, non-existing element type!!! ')
@@ -111,12 +111,12 @@ n=numberofintegrationpoints(ncoord,nelnodes);
 %Position of gauss points in normalized coordinate system
 pospg=integrationpoints(ncoord,nelnodes,n);
 %Weights for gauss integration
-wpg=integrationweights(nelnodes,n,ncoord);
+wpg=integrationweights(nelnodes,n);
 
 %For each element the shape function and its derivative is calculated, and
 %stored in matrix form.
 for i1=1:n
-    Ne=shapefunctions(nelnodes,pospg,ncoord);
+    Ne=shapefunctions(nelnodes,pospg);
     N(i1,:)=Ne(:);
     dNdxie=shapefunctionderivs(nelnodes,ncoord,pospg);
     for i2=1:nelnodes
@@ -293,12 +293,12 @@ case 7
 case 8
     fprintf(f,'%s %8i %8i\n','CELLS', nelem , nelem*16);
     for i1=1:nelem
-    fprintf(f,'%4i  %10i  %10i %10i  %10i %10i %10i %10i  %10i %10i %10i %10i %10i  %10i %10i %10i\n',10,T(i1,1)-1,T(i1,2)-1,T(i1,3)-1,T(i1,4)-1,T(i1,5)-1,T(i1,6)-1,T(i1,7)-1,T(i1,8)-1,T(i1,9)-1,T(i1,10)-1,T(i1,11)-1,T(i1,12)-1,T(i1,13)-1,T(i1,14)-1,T(i1,15)-1);
+    fprintf(f,'%4i  %10i  %10i %10i  %10i %10i %10i %10i  %10i %10i %10i %10i %10i  %10i %10i %10i\n',10,T(i1,1)-1,T(i1,2)-1,T(i1,3)-1,T(i1,4)-1,T(i1,5)-1,T(i1,6)-1,T(i1,7)-1,T(i1,8)-1,T(i1,9)-1,T(i1,10)-1,T(i1,11)-1,T(i1,10)-1);
     end
     fprintf(f,'\n');
     fprintf(f,'%s %8i\n','CELL_TYPES', nelem);
     for i1=1:nelem
-    fprintf(f,' %4i ', 25);
+    fprintf(f,' %4i ', 24);
     end
     fprintf(f,'\n');
 end
