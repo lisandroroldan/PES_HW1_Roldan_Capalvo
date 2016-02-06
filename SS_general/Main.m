@@ -122,8 +122,17 @@ for i1=1:n
     N(i1,:)=Ne(:);
     dNdxie=shapefunctionderivs(nelnodes,ncoord,pospg);
     for i2=1:nelnodes
+        if ncoord == 2
+        
         dNdxi(i2,i1*2-1) =dNdxie(i2,1);
         dNdxi(i2,i1*2)   =dNdxie(i2,2);
+        else
+        dNdxi(i2,i1*3-2) =dNdxie(i2,1);
+        dNdxi(i2,i1*3-1) =dNdxie(i2,2);
+        dNdxi(i2,i1*3)   =dNdxie(i2,3);
+        
+        end
+        
     end
 end
 
@@ -132,7 +141,7 @@ N=N';
 dNdxi=dNdxi';
 
 % SYSTEM RESULTING OF DISCRETIZING THE WEAK FORM
-[K,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi);
+[K,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi,ncoord);
 
 %BOUNDARY CONDITIONS
 %nodesDir1 = nodes in wich u=1

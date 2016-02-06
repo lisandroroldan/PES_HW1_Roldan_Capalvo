@@ -1,5 +1,5 @@
 
-function [Ke,fe] = MatEl(Xe,nnode,pospg,wpg,N,dNdxi,ncoord) 
+function [Ke,fe] = MatEl(Xe,nnode,pospg,wpg,N,dNdxi) 
 % [Ke,fe] = MatEl(Xe,nnode,pospg,wpg,N,Nxi,Neta) 
 % Element stiffness matrix Ke and r.h.s vector fe
 % 
@@ -31,7 +31,7 @@ for igaus = 1:ngaus
              Neta_igaus*(Xe(:,1))	Neta_igaus*(Xe(:,2))];
          
          
-    dvolu = wpg(igaus)*det(Jacob); 
+          dvolu = wpg(igaus)*det(Jacob); 
        
     res = Jacob\[Nxi_igaus;Neta_igaus]; 
     Nx = res(1,:); 
@@ -41,25 +41,28 @@ for igaus = 1:ngaus
     aux = Isopar(Xe,N_igaus);
     f_igaus = SourceTerm(aux); 
     fe = fe + N_igaus'*(f_igaus*dvolu);
-    
     else
-     
+        
+        
+   
     N_igaus = N(:,igaus)';   %%originally N_igaus = N(igaus,:);    
     Nxi_igaus = dNdxi(3*igaus-2,:);   
     Neta_igaus = dNdxi(3*igaus-1,:); 
     Nnab_igaus = dNdxi(3*igaus,:);   
     Jacob = [Nxi_igaus*(Xe(:,1))	Nxi_igaus*(Xe(:,2))   Nxi_igaus*(Xe(:,3))  
              Neta_igaus*(Xe(:,1))	Neta_igaus*(Xe(:,2))  Neta_igaus*(Xe(:,3))
-             Nnab_igaus*(Xe(:,1))	Nnab_igaus*(Xe(:,2))  Nnab_igaus*(Xe(:,3)) ];        
+            Nnab_igaus*(Xe(:,1))	Nnab_igaus*(Xe(:,2))  Nnab_igaus*(Xe(:,3)) ];        
+        
+       
+        
         
     dvolu = wpg(igaus)*det(Jacob); 
        
-    res = Jacob\[Nxi_igaus;Neta_igaus;Nnab_igaus]; 
+    res = Jacob\[Nxi_igaus;Neta_igaus]; 
     Nx = res(1,:); 
-    Ny = res(2,:);
-    Nz = res(3,:);
+    Ny = res(2,:); 
 
-    Ke = Ke + (nu*(Nx'*Nx+Ny'*Ny+Nz'*Nz))*dvolu; 
+    Ke = Ke + (nu*(Nx'*Nx+Ny'*Ny))*dvolu; 
     aux = Isopar(Xe,N_igaus);
     f_igaus = SourceTerm(aux); 
     fe = fe + N_igaus'*(f_igaus*dvolu);
