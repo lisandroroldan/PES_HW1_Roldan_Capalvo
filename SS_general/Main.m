@@ -118,21 +118,32 @@ wpg=integrationweights(nelnodes,n,ncoord);
 %For each element the shape function and its derivative is calculated, and
 %stored in matrix form.
 for i1=1:n
-    Ne=shapefunctions(nelnodes,pospg,ncoord);
+    Ne=shapefunctions(nelnodes,pospg,ncoord,i1);    %% this function didn't know the iteration step, thus evaluated pospg always at the same point
     N(i1,:)=Ne(:);
-    dNdxie=shapefunctionderivs(nelnodes,ncoord,pospg);
+    dNdxie=shapefunctionderivs(nelnodes,ncoord,pospg,i1); %% same for this one, added i1
+    if ncoord==2
     for i2=1:nelnodes
         dNdxi(i2,i1*2-1) =dNdxie(i2,1);
         dNdxi(i2,i1*2)   =dNdxie(i2,2);
     end
+    elseif ncoord==3
+      for i2=1:nelnodes
+        dNdxi(i2,i1*3-2) =dNdxie(i2,1);
+        dNdxi(i2,i1*3-1)   =dNdxie(i2,2);
+        dNdxi(i2,i1*3)   =dNdxie(i2,3);
+    end   
+    end
+    
+    
 end
 
+
 %Transpose (just to make it work in CreateMatrix function
-N=N';
-dNdxi=dNdxi';
+%N=N';          %No need to transpose it now
+dNdxi=dNdxi'    % still need to transpose it, maybe tranpose it by components on lines 131-133
 
 % SYSTEM RESULTING OF DISCRETIZING THE WEAK FORM
-[K,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi);
+[K,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi,ncoord);
 
 %BOUNDARY CONDITIONS
 %nodesDir1 = nodes in wich u=1

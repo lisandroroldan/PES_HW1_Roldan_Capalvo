@@ -1,4 +1,4 @@
-function [K,f] = CreateMatrix(X,T,pospg,pespg,N,dNdxi) 
+function [K,f] = CreateMatrix(X,T,pospg,pespg,N,dNdxi,ncoord) 
 % Stiffness matrix K and r.h.s vector f 
 % obtained by discretizing a heat equation
 % 
@@ -25,11 +25,14 @@ f = zeros(numnp,1);
 for ielem = 1:numel
     % Te: global number of the nodes in the current element
     % Xe: coordenates of the nodes in the current element
-    Te = T(ielem,:); 
+    Te = T(ielem,:);
+    
     % Get local information
-    Xe = X(Te,:); 
+    Xe = X(Te,:);
+    
     % Element matrices
-    [Ke,fe] = MatEl(Xe,nen,pospg,pespg,N,dNdxi); 
+    [Ke,fe] = MatEl(Xe,nen,pospg,pespg,N,dNdxi,ncoord);
+    
     % Assemble the element matrices
     K(Te,Te) = K(Te,Te) + Ke; 
     f(Te) = f(Te) + fe; 

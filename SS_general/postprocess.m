@@ -98,18 +98,18 @@ case 6
 case 7
     fprintf(f,'%s %8i %8i\n','CELLS', nelem , nelem*9);
     for i1=1:nelem
-    fprintf(f,'%4i %10i  %10i %10i %10i %10i  %10i %10i %10i\n',4,T(i1,1)-1,T(i1,2)-1,T(i1,3)-1,T(i1,4)-1,T(i1,5)-1,T(i1,6)-1,T(i1,7)-1,T(i1,8)-1);
+    fprintf(f,'%4i %10i  %10i %10i %10i %10i  %10i %10i %10i\n',8,T(i1,1)-1,T(i1,2)-1,T(i1,3)-1,T(i1,4)-1,T(i1,5)-1,T(i1,6)-1,T(i1,7)-1,T(i1,8)-1);
     end
     fprintf(f,'\n');
     fprintf(f,'%s %8i\n','CELL_TYPES', nelem);
     for i1=1:nelem
-    fprintf(f,' %4i ', 11);
+    fprintf(f,' %4i ', 12);
     end
     fprintf(f,'\n');
 case 8
-    fprintf(f,'%s %8i %8i\n','CELLS', nelem , nelem*16);
+    fprintf(f,'%s %8i %8i\n','CELLS', nelem , nelem*21);
     for i1=1:nelem
-    fprintf(f,'%4i  %10i %10i  %10i %10i  %10i %10i %10i %10i  %10i %10i %10i %10i  %10i %10i %10i %10i %10i  %10i %10i %10i\n',10,T(i1,1)-1,T(i1,2)-1,T(i1,3)-1,T(i1,4)-1,T(i1,5)-1,T(i1,6)-1,T(i1,7)-1,T(i1,8)-1,T(i1,9)-1,T(i1,10)-1,T(i1,11)-1,T(i1,12)-1,T(i1,13)-1,T(i1,14)-1,T(i1,15)-1,T(i1,16)-1,T(i1,17)-1,T(i1,18)-1,T(i1,19)-1,T(i1,20)-1);
+    fprintf(f,'%4i  %10i %10i  %10i %10i  %10i %10i %10i %10i  %10i %10i %10i %10i  %10i %10i %10i %10i %10i  %10i %10i %10i\n',20,T(i1,1)-1,T(i1,2)-1,T(i1,3)-1,T(i1,4)-1,T(i1,5)-1,T(i1,6)-1,T(i1,7)-1,T(i1,8)-1,T(i1,9)-1,T(i1,10)-1,T(i1,11)-1,T(i1,12)-1,T(i1,13)-1,T(i1,14)-1,T(i1,15)-1,T(i1,16)-1,T(i1,17)-1,T(i1,18)-1,T(i1,19)-1,T(i1,20)-1);
     end
     fprintf(f,'\n');
     fprintf(f,'%s %8i\n','CELL_TYPES', nelem);
