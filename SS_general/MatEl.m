@@ -44,12 +44,16 @@ for igaus = 1:ngaus
              Neta_igaus*(Xe(:,1))	Neta_igaus*(Xe(:,2))	Neta_igaus*(Xe(:,3))
              Nmu_igaus*(Xe(:,1))	Nmu_igaus*(Xe(:,2))	    Nmu_igaus*(Xe(:,3))];
          
+         
     dvolu = wpg(igaus)*det(Jacob);
+   
     res = Jacob\[Nxi_igaus;Neta_igaus;Nmu_igaus] ;
     Nx = res(1,:) ;
     Ny = res(2,:) ;
     Nz = res(3,:) ;
-    Ke = Ke + (nu*(Nx'*Nx+Ny'*Ny))*dvolu;    
+    Ke = Ke + (nu*(Nx'*Nx+Ny'*Ny+Nz'*Nz))*dvolu;
+
+    
         
         
     end

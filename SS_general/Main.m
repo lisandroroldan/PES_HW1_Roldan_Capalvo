@@ -140,7 +140,8 @@ end
 
 %Transpose (just to make it work in CreateMatrix function
 %N=N';          %No need to transpose it now
-dNdxi=dNdxi'    % still need to transpose it, maybe tranpose it by components on lines 131-133
+dNdxi=dNdxi' ;   % still need to transpose it, maybe tranpose it by components on lines 131-133
+
 
 % SYSTEM RESULTING OF DISCRETIZING THE WEAK FORM
 [K,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi,ncoord);

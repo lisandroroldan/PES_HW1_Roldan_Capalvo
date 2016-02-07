@@ -13,13 +13,21 @@ global diffusion  h
 nu = diffusion;
 
 % Total number of elements and number of nodes in aech one
-[numel,nen] = size(T); 
+[numel,nen] = size(T);
 % Total number of nodes
 numnp = size(X,1); 
  
 % Allocate storage
 K = zeros(numnp,numnp); 
 f = zeros(numnp,1); 
+
+
+
+
+
+
+
+
 
 % Loop on elements
 for ielem = 1:numel
@@ -29,12 +37,13 @@ for ielem = 1:numel
     
     % Get local information
     Xe = X(Te,:);
-    
+   
     % Element matrices
     [Ke,fe] = MatEl(Xe,nen,pospg,pespg,N,dNdxi,ncoord);
     
     % Assemble the element matrices
-    K(Te,Te) = K(Te,Te) + Ke; 
+    K(Te,Te) = K(Te,Te) + Ke;
+    
     f(Te) = f(Te) + fe; 
     clear Ke; clear fe; 
 end 
