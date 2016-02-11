@@ -35,9 +35,14 @@ function dNdxi = shapefunctionderivs(nelnodes,ncoord,xi,i1)
        dNdxi(4,1) = 4.*xi(2,i1);
        dNdxi(4,2) = 4.*xi(1,i1);
        dNdxi(5,1) = -4.*xi(2,i1);
-       dNdxi(5,2) = -4.*xi(1,i1);
-       dNdxi(6,1) = 4.*xi3 - 4.*xi(1,i1);
-       dNdxi(6,2) = 4.*xi3 - 4.*xi(2,i1);
+       %dNdxi(5,2) = -4.*xi(1,i1);
+       dNdxi(5,2) = -4.*(-1.+xi(1,i1)+2.*xi(2,i1));
+       
+       %dNdxi(6,1) = 4.*xi3 - 4.*xi(1,i1);
+       dNdxi(6,1) = -4.*(-1.+2.*xi(1,i1)+xi(2,i1));
+       
+       %dNdxi(6,2) = 4.*xi3 - 4.*xi(2,i1);
+       dNdxi(6,2) = -4.*xi(1,i1);
 %
 %    Rectangular element
 %                  
@@ -96,13 +101,17 @@ function dNdxi = shapefunctionderivs(nelnodes,ncoord,xi,i1)
        dNdxi(6,3) = 4.*xi(2,i1);
        dNdxi(7,1) = 4.*xi(3,i1);
        dNdxi(7,3) = 4.*xi(1,i1); 
-       dNdxi(8,1) = 4.*(xi4-xi(1,i1));
+       %dNdxi(8,1) = 4.*(xi4-xi(1,i1));
+       dNdxi(8,1) = 4.-4.*xi(2,i1)-8.*xi(1,i1)-4.*xi(3,i1);
+
        dNdxi(8,2) = -4.*xi(1,i1);
        dNdxi(8,3) = -4.*xi(1,i1);
        dNdxi(9,1) = -4.*xi(2,i1);
-       dNdxi(9,2) = 4.*(xi4-xi(2,i1));
+       %dNdxi(9,2) = 4.*(xi4-xi(2,i1));
+       dNdxi(9,2) = 4.-4.*xi(1,i1)-8.*xi(2,i1)-4.*xi(3,i1);
        dNdxi(9,3) = -4.*xi(2,i1);
-       dNdxi(10,1) = -4.*xi(3,i1)*xi4;
+       %dNdxi(10,1) = -4.*xi(3,i1)*xi4;
+       dNdxi(10,1) = -4.*xi(3,i1);
        dNdxi(10,2) = -4.*xi(3,i1);
        dNdxi(10,3) = 4.*(xi4-xi(3,i1));
      elseif (nelnodes == 8) 
