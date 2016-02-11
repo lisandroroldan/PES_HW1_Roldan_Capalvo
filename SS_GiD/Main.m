@@ -1,7 +1,3 @@
-% This program solves a convection-diffusion problem 
-% in a square domain [0,1]x[0,1] using bilinear elements.
-% 
-
 clear, close all, home
 
 global diffusion  h 
@@ -14,94 +10,45 @@ disp(' ')
 
 
 
-% fid = fopen('test.dat');
-% 
-% 
-% tline = fgetl(fid)
-% 
-% while ischar(tline)
-%     disp(tline);
-%     tline = fgetl(fid);
-% end
-% 
-% fclose(fid);
+header = importdata('test.dat',' ',1);
 
-%M = csvread('test.dat',3,0,[0,0,1,1])
+Xin= importdata('test.dat',' ',6);
 
-header = importdata('test.dat',' ',1)
+Tin= importdata('test.dat',' ',header.data(2)+7);
 
-Xin= importdata('test.dat',' ',6)
-
-Tin= importdata('test.dat',' ',header.data(2)+7)
-
-diffusion_in = importdata('test.dat',' ',header.data(2)+8+header.data(3))
-diffusion =diffusion_in.data
-C = importdata('test.dat',' ',header.data(2)+8+2*header.data(3)+1)
-
+diffusion_in = importdata('test.dat',' ',header.data(2)+8+header.data(3));
+diffusion =diffusion_in.data;
+C = importdata('test.dat',' ',header.data(2)+8+2*header.data(3)+1);
 type=header.data(1);
 
 
 
-
-%Element type selection
-disp('Element type')
-disp('2D PROBLEM')
-disp('1: Triangular linear')
-disp('2: Triangular quadratic')
-disp('3: Cuadrilateral linear')
-disp('4: Cuadrilateral quadratic')
-disp('3D PROBLEM')
-disp('5: Tetra linear')
-disp('6: Tetra quadratic')
-disp('7: Hexa linear')
-disp('8: Hexa quadratic')
-%type = input('Element type ');
-
-%Diffusion coeficient imported
-%diffusion = load('diffusion');
-%diffusion=1;
 % GEOMETRY
 % Matrix of nodal coordinates and conectivities
 switch type
 case 1
-    %Xa = load('nodes_2D_tri_linear');
     X=Xin.data(:,2:3);
-    %Ta = load('elem_2D_tri_linear');
     T=Tin.data(:,2:4);
 case 2
-    %Xa = load('nodes_2D_tri_quad');
     X=Xin.data(:,2:3);
-    %Ta = load('elem_2D_tri_quad');
     T=Tin.data(:,2:7);
 case 3
-    %Xa = load('nodes_2D_quad_linear');
     X=Xin.data(:,2:3);
-    %Ta = load('elm_2D_quad_linear');
     T=Tin.data(:,2:5);
 case 4
-    %Xa = load('nodes_2D_quad_quad');
     X=Xin.data(:,2:3);
-    %Ta = load('elm_2D_quad_quad');
     T=Tin.data(:,2:9);
 case 5
-   % Xa = load('nodes_3D_tri_lin');
     X=Xin.data(:,2:4);
-   % Ta = load('elem_3D_tri_lin');
     T=Tin.data(:,2:5);
 case 6
-   % Xa = load('nodes_3D_tri_quad');
     X=Xin.data(:,2:4);
-   % Ta = load('elem_3D_tri_quad');
     T=Tin.data(:,2:11);
 case 7
-   % Xa = load('nodes_3D_quad_lin');
     X=Xin.data(:,2:4);
-   % Ta = load('elem_3D_quad_lin');
     T=Tin.data(:,2:9);
 case 8
-   % Xa = load('nodes_3D_quad_quad');
     X=Xin.data(:,2:4);
-    %Ta = load('elem_3D_quad_quad');
     T=Tin.data(:,2:21);  
 otherwise
     disp('Error, non-existing element type!!! ')
@@ -177,45 +124,7 @@ dNdxi=dNdxi' ;   % still need to transpose it, maybe tranpose it by components o
 % SYSTEM RESULTING OF DISCRETIZING THE WEAK FORM
 [K,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi,ncoord);
 
-%BOUNDARY CONDITIONS
-%nodesDir1 = nodes in wich u=1
-%nodesDir2 = nodes in wich u=0
-% switch type
-% case 1
-% nodesDir1 = [1, 14, 75, 76, 77, 78, 79, 80]';
-% nodesDir0 = [4, 5, 6, 7, 8, 9, 10, 11, 12]';
-% case 2
-% nodesDir1 = [1,  14,  75,  76,  77,  78,  79,  80, 453, 462, 696, 698, 701, 705, 843]';
-% nodesDir0 = [4,   5,   6,   7,   8,   9,  10,  11,  12, 263, 465, 466, 468, 470, 474, 478, 711]';
-% case 3
-% nodesDir1 = [1, 14, 75, 76, 77, 78, 79, 80]';
-% nodesDir0 = [4, 5, 6, 7, 8, 9, 10, 11, 12]';
-% case 4
-% nodesDir1 = [1,  14,  75,  76,  77,  78,  79,  80, 480, 501, 505, 607, 641, 647, 714]';
-% nodesDir0 = [4,   5,   6,   7,   8,   9,  10,  11,  12, 283, 291, 487, 488, 489, 496, 728, 731]';
-% case 5
-% nodesDir1 = [5,   6,  11,  12,  54,  98,  99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 207, 208, 209, 210, 211, 212]';
-% nodesDir0 = [7,   8,   9,  10,  64,  65,  66,  67,  68,  69,  70,  71,  72,  73,  74,  75, 76,  77,  78,  79, 191, 192, 193, 194, 195, 196, 197]';
-% case 6
-% nodesDir1 = [ 5,    6,   11,   12,   54,   98,   99,  100,  101,  102,  103,  104,  105,  106,  107,  108,  109,  110,  207,  208,  209,  210,  211,  212, 1007, 1012, 1017, 1088, 1102, 1103, 1113, 1204, 1205, 1316, 1318, 1319, 1352, 1720, 1724, 1725, 1813, 1815, 1817, 1852, 1854, 1978, 2094, 2095, 2133, 2259, 2260, 2269, 2271, 2273, 2385, 2431, 2515, 2516, 2833, 2835, 2975, 3039, 3190, 3462, 3463, 3511, 3512, 3683, 3691, 3877, 4097, 4414, 4428, 4429, 4521]';
-% nodesDir0 = [7,    8,    9,   10,   64,   65,   66,   67,   68,   69,   70,   71,   72,   73,   74,   75,   76,   77,   78,   79,  191,  192,  193,  194,  195,  196,  197, 1033, 1133, 1136, 1141, 1168, 1174, 1239, 1241, 1243, 1248, 1311, 1315, 1486, 1497, 1506, 1668, 1669, 1761, 1763, 2810, 2857, 2859, 2860, 3468, 3469, 3697, 3936, 3946, 3948, 4114, 4116, 4117, 4194, 4196, 4228, 4229, 4249, 4452, 4455, 4456, 4461, 4463, 4464, 4465, 4466, 4467, 4470, 4471, 4472, 4474, 4475, 4477, 4484, 4485, 4486, 4489, 4490, 4507]';
-% % case 6
-% %     nodesDir1=[5,4428,54,1725,6,4429,3462,1720,1724,2516,98,3463,207,2515,110,4097,3039,2975,1813,1815,99,2385,208,1817,109,3512,3511,2431,2095,2094,100,2133,209,1318,108,1103,1352,1316,1319,1088,101,1113,210,1978,107,1017,3683,2260,2259,1102,102,1012,211,1007,106,1204,1205,1854,1852,4521,103,3691,212,2273,105,4414,3877,2271,2269,2233]';
-% %  nodesDir0 = [7,    8,    9,   10,   64,   65,   66,   67,   68,   69,   70,   71,   72,   73,   74,   75,   76,   77,   78,   79,  191,  192,  193,  194,  195,  196,  197, 1033, 1133, 1136, 1141, 1168, 1174, 1239, 1241, 1243, 1248, 1311, 1315, 1486, 1497, 1506, 1668, 1669, 1761, 1763, 2810, 2857, 2859, 2860, 3468, 3469, 3697, 3936, 3946, 3948, 4114, 4116, 4117, 4194, 4196, 4228, 4229, 4249, 4452, 4455, 4456, 4461, 4463, 4464, 4465, 4466, 4467, 4470, 4471, 4472, 4474, 4475, 4477, 4484, 4485, 4486, 4489, 4490, 4507]';
-%     
-% case 7
-% nodesDir1 = [1,   3,  24,  25,  26,  27,  28,  29, 260, 262, 283, 284, 285, 286, 287, 288, 519, 521, 542, 543, 544, 545, 546, 547]';
-% nodesDir0 = [5,   6,   7,   8,   9,  10,  11,  12,  13, 264, 265, 266, 267, 268, 269, 270, 271, 272, 523, 524, 525, 526, 527, 528, 529, 530, 531]';
-% case 8
-% nodesDir1 = [1,    3,   24,   25,   26,   27,   28,   29,  260,  262,  283,  284,  285,  286,  287,  288,  519,  521,  542,  543,  544,  545,  546,  547,  903,  906,  909,  911,  975,  982,  984,  986,  992,  997,  998,  999, 1000, 1001, 1449, 1456, 1457, 1459, 1464, 1466, 1772, 1773, 2070, 2073, 2075, 2119, 2121, 2123, 2129, 2130, 2131, 2132, 2414, 2418, 2422, 2424, 2606]';    
-% nodesDir0 = [5,    6,    7,    8,    9,   10,   11,   12,   13,  264,  265,  266,  267,  268,  269,  270,  271,  272,  523,  524,  525,  526,  527,  528,  529,  530,  531,  839,  844,  848,  849,  852,  855,  858,  860,  862,  865, 1413, 1420, 1422, 1423, 1424, 1431, 1432, 1434, 1974, 1977, 1978, 1979, 1982, 1983, 1984, 2031, 2035, 2036, 2038, 2041, 2043, 2046, 2395, 2397, 2398, 2402, 2403, 2405, 2717, 2718, 2720, 2721]';            
-% end
-% 
-% 
-% % Boundary condition matrix
-% C = [nodesDir1, ones(length(nodesDir1),1);
-%      nodesDir0, zeros(length(nodesDir0),1)];
-
+% Setting of variables needed for lagrange multiplier method
 ndir = size(C.data,1);
 neq  = size(f,1);
 A = zeros(ndir,neq);

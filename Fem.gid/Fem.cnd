@@ -1,10 +1,10 @@
-CONDITION: Dirichlet_BC
+CONDITION: Dirichlet_BC_line
 CONDTYPE: over lines
 CONDMESHTYPE: over nodes
 QUESTION: Temperature
 VALUE: 0.0
 END CONDITION
-CONDITION: Dirichlet_BC2
+CONDITION: Dirichlet_BC_surface
 CONDTYPE: over surfaces
 CONDMESHTYPE: over nodes
 QUESTION: Temperature

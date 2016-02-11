@@ -25,7 +25,7 @@ elemt type / number nodes / number elements / number conditions
 *type
 *npoin
 *nelem
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
 *CondNumEntities
 Nodal coordinate matrix /////////////////////////////////
 *loop nodes
@@ -44,7 +44,7 @@ material properties ///////////////////////////////////////
 *end elems
 *end materials
 Boundary conditions //////////////////////////////////////////
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
 *loop nodes *OnlyInCond
 *NodesNum *cond(1)  
 *end nodes
@@ -56,7 +56,7 @@ elemt type / number nodes / number elements / number conditions
 *type
 *npoin
 *nelem
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
 *CondNumEntities
 Nodal coordinate matrix /////////////////////////////////
 *loop nodes
@@ -75,7 +75,7 @@ material properties ///////////////////////////////////////
 *end elems
 *end materials
 Boundary conditions //////////////////////////////////////////
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
 *loop nodes *OnlyInCond
 *NodesNum *cond(1)  
 *end nodes
@@ -88,7 +88,7 @@ elemt type / number nodes / number elements / number conditions
 *type
 *npoin
 *nelem
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
 *CondNumEntities
 Nodal coordinate matrix /////////////////////////////////
 *loop nodes
@@ -107,7 +107,7 @@ material properties ///////////////////////////////////////
 *end elems
 *end materials
 Boundary conditions //////////////////////////////////////////
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
 *loop nodes *OnlyInCond
 *NodesNum *cond(1)  
 *end nodes
@@ -120,7 +120,7 @@ elemt type / number nodes / number elements / number conditions
 *type
 *npoin
 *nelem
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
 *CondNumEntities
 Nodal coordinate matrix /////////////////////////////////
 *loop nodes
@@ -139,7 +139,7 @@ material properties ///////////////////////////////////////
 *end elems
 *end materials
 Boundary conditions //////////////////////////////////////////
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
 *loop nodes *OnlyInCond
 *NodesNum *cond(1)  
 *end nodes
@@ -152,7 +152,8 @@ elemt type / number nodes / number elements / number conditions
 *type
 *npoin
 *nelem
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
+*add cond Dirichlet_BC_surface *nodes
 *CondNumEntities
 Nodal coordinate matrix /////////////////////////////////
 *loop nodes
@@ -171,11 +172,11 @@ material properties ///////////////////////////////////////
 *end elems
 *end materials
 Boundary conditions //////////////////////////////////////////
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
 *loop nodes *OnlyInCond
 *NodesNum *cond(1)  
 *end nodes
-*Set Cond Dirichlet_BC2 *nodes
+*Set Cond Dirichlet_BC_surface *nodes
 *loop nodes *OnlyInCond
 *NodesNum *cond(1)  
 *end nodes
@@ -188,7 +189,8 @@ elemt type / number nodes / number elements / number conditions
 *type
 *npoin
 *nelem
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
+*add cond Dirichlet_BC_surface *nodes
 *CondNumEntities
 Nodal coordinate matrix /////////////////////////////////
 *loop nodes
@@ -207,7 +209,11 @@ material properties ///////////////////////////////////////
 *end elems
 *end materials
 Boundary conditions //////////////////////////////////////////
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
+*loop nodes *OnlyInCond
+*NodesNum *cond(1)  
+*end nodes
+*Set Cond Dirichlet_BC_surface *nodes
 *loop nodes *OnlyInCond
 *NodesNum *cond(1)  
 *end nodes
@@ -220,7 +226,8 @@ elemt type / number nodes / number elements / number conditions
 *type
 *npoin
 *nelem
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
+*add cond Dirichlet_BC_surface *nodes
 *CondNumEntities
 Nodal coordinate matrix /////////////////////////////////
 *loop nodes
@@ -239,7 +246,11 @@ material properties ///////////////////////////////////////
 *end elems
 *end materials
 Boundary conditions //////////////////////////////////////////
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
+*loop nodes *OnlyInCond
+*NodesNum *cond(1)  
+*end nodes
+*Set Cond Dirichlet_BC_surface *nodes
 *loop nodes *OnlyInCond
 *NodesNum *cond(1)  
 *end nodes
@@ -252,7 +263,8 @@ elemt type / number nodes / number elements / number conditions
 *type
 *npoin
 *nelem
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
+*add cond Dirichlet_BC_surface *nodes
 *CondNumEntities
 Nodal coordinate matrix /////////////////////////////////
 *loop nodes
@@ -271,7 +283,11 @@ material properties ///////////////////////////////////////
 *end elems
 *end materials
 Boundary conditions //////////////////////////////////////////
-*Set Cond Dirichlet_BC *nodes
+*Set Cond Dirichlet_BC_line *nodes
+*loop nodes *OnlyInCond
+*NodesNum *cond(1)  
+*end nodes
+*Set Cond Dirichlet_BC_surface *nodes
 *loop nodes *OnlyInCond
 *NodesNum *cond(1)  
 *end nodes
