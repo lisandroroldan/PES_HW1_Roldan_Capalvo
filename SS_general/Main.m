@@ -3,7 +3,6 @@
 % 
 
 clear, close all, home
-
 global diffusion  h 
 
 disp(' ')
@@ -27,50 +26,50 @@ disp('8: Hexa quadratic')
 type = input('Element type ');
 
 %Diffusion coeficient imported
-diffusion = load('diffusion');
+diffusion = load('Difussion/diffusion');
 
 % GEOMETRY
 % Matrix of nodal coordinates and conectivities
 switch type
 case 1
-    Xa = load('nodes_2D_tri_linear');
+    Xa = load('Nodes/nodes_2D_tri_linear');
     X=Xa(:,2:3);
-    Ta = load('elem_2D_tri_linear');
+    Ta = load('Elem/elem_2D_tri_linear');
     T=Ta(:,2:4);
 case 2
-    Xa = load('nodes_2D_tri_quad');
+    Xa = load('Nodes/nodes_2D_tri_quad');
     X=Xa(:,2:3);
-    Ta = load('elem_2D_tri_quad');
+    Ta = load('Elem/elem_2D_tri_quad');
     T=Ta(:,2:7);
 case 3
-    Xa = load('nodes_2D_quad_linear');
+    Xa = load('Nodes/nodes_2D_quad_linear');
     X=Xa(:,2:3);
-    Ta = load('elm_2D_quad_linear');
+    Ta = load('Elem/elm_2D_quad_linear');
     T=Ta(:,2:5);
 case 4
-    Xa = load('nodes_2D_quad_quad');
+    Xa = load('Nodes/nodes_2D_quad_quad');
     X=Xa(:,2:3);
-    Ta = load('elm_2D_quad_quad');
+    Ta = load('Elem/elm_2D_quad_quad');
     T=Ta(:,2:9);
 case 5
-    Xa = load('nodes_3D_tri_lin');
+    Xa = load('Nodes/nodes_3D_tri_lin');
     X=Xa(:,2:4);
-    Ta = load('elem_3D_tri_lin');
+    Ta = load('Elem/elem_3D_tri_lin');
     T=Ta(:,2:5);
 case 6
-    Xa = load('nodes_3D_tri_quad');
+    Xa = load('Nodes/nodes_3D_tri_quad');
     X=Xa(:,2:4);
-    Ta = load('elem_3D_tri_quad');
+    Ta = load('Elem/elem_3D_tri_quad');
     T=Ta(:,2:11);
 case 7
-    Xa = load('nodes_3D_quad_lin');
+    Xa = load('Nodes/nodes_3D_quad_lin');
     X=Xa(:,2:4);
-    Ta = load('elem_3D_quad_lin');
+    Ta = load('Elem/elem_3D_quad_lin');
     T=Ta(:,2:9);
 case 8
-    Xa = load('nodes_3D_quad_quad');
+    Xa = load('Nodes/nodes_3D_quad_quad');
     X=Xa(:,2:4);
-    Ta = load('elem_3D_quad_quad');
+    Ta = load('Elem/elem_3D_quad_quad');
     T=Ta(:,2:21);  
 otherwise
     disp('Error, non-existing element type!!! ')

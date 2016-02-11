@@ -6,7 +6,7 @@ nnode = length(X);
 nelem = length(T);
 
 % printing heading to file
-f=fopen('MyParaviewFile.vtk','w');
+f=fopen('Post/MyParaviewFile.vtk','w');
 fprintf(f,'# vtk DataFile Version 1.0\n');
 fprintf(f,'ECM-CELL DIFFUSION-MECHANICS\n');
 fprintf(f,'ASCII\n');
