@@ -8,23 +8,16 @@ disp('No source term is considered.');
 disp('Diffusion coeficient, geometry and BC imported from data files.');
 disp(' ')
 
+%Import of Nodal coodrinates, conectivity, difusivity and Boundary conditions
+iname = input('input name : ','s');
 
-
-header = importdata('test.dat',' ',1);
-
-Xin= importdata('test.dat',' ',6);
-
-Tin= importdata('test.dat',' ',header.data(2)+7);
-
-diffusion_in = importdata('test.dat',' ',header.data(2)+8+header.data(3));
+header = importdata(iname,' ',1);
+Xin= importdata(iname,' ',6);
+Tin= importdata(iname,' ',header.data(2)+7);
+diffusion_in = importdata(iname,' ',header.data(2)+8+header.data(3));
 diffusion =diffusion_in.data;
-C = importdata('test.dat',' ',header.data(2)+8+2*header.data(3)+1);
+C = importdata(iname,' ',header.data(2)+8+2*header.data(3)+1);
 type=header.data(1);
-
-
-
-% GEOMETRY
-% Matrix of nodal coordinates and conectivities
 switch type
 case 1
     X=Xin.data(:,2:3);
@@ -55,7 +48,7 @@ otherwise
 end
 
 
-
+tic;
 % NUMERICAL INTEGRATION
 %ncoord= Number of coordinates (2D=2, 3D=3)
 %Number of nodes per element
@@ -140,15 +133,19 @@ ftot = [f;b];
 sol = Ktot\ftot;
 Temp = sol(1:neq);
 multip = sol(neq+1:end);
-
+toc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % POSTPROCESS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-F= postprocess(X,T,ncoord,type,f,Temp);
+name = input('output name : ','s');
+postprocess(X,T,ncoord,type,f,Temp,name);
 
 disp('Open file: MyParaviewFile.vtk using Paraview')
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Clear of variables 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+clearvars Ne h i1 i2 iname name diffusion_in N dNdxi dNdxie Tin Xin ans n b wpg pospg ncoord neq nelnodes
 

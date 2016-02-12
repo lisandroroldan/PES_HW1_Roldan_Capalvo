@@ -30,7 +30,7 @@ for igaus = 1:ngaus
     Nxi_igaus = dNdxi(2*igaus-1,:);
     Neta_igaus = dNdxi(2*igaus,:);       
     Jacob = [Nxi_igaus*(Xe(:,1))	Nxi_igaus*(Xe(:,2))   
-             Neta_igaus*(Xe(:,1))	Neta_igaus*(Xe(:,2))];            
+             Neta_igaus*(Xe(:,1))	Neta_igaus*(Xe(:,2))];
     dvolu = wpg(igaus)*det(Jacob);
     res = Jacob\[Nxi_igaus;Neta_igaus] ;
     Nx = res(1,:) ;
@@ -44,9 +44,7 @@ for igaus = 1:ngaus
              Neta_igaus*(Xe(:,1))	Neta_igaus*(Xe(:,2))	Neta_igaus*(Xe(:,3))
              Nmu_igaus*(Xe(:,1))	Nmu_igaus*(Xe(:,2))	    Nmu_igaus*(Xe(:,3))];
          
-         
-    dvolu = wpg(igaus)*det(Jacob);
-   
+    dvolu = wpg(igaus)*det(Jacob);   
     res = Jacob\[Nxi_igaus;Neta_igaus;Nmu_igaus] ;
     Nx = res(1,:) ;
     Ny = res(2,:) ;

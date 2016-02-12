@@ -1,4 +1,4 @@
-function [ f ] = postprocess(X,T,ncoord,type,f,Temp)
+function [ f ] = postprocess(X,T,ncoord,type,f,Temp,name)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,7 +6,7 @@ nnode = length(X);
 nelem = length(T);
 
 % printing heading to file
-f=fopen('Post/MyParaviewFile.vtk','w');
+f=fopen(strcat('Post/', name, '.vtk'),'w');
 fprintf(f,'# vtk DataFile Version 1.0\n');
 fprintf(f,'ECM-CELL DIFFUSION-MECHANICS\n');
 fprintf(f,'ASCII\n');

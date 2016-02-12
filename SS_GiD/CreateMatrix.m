@@ -22,13 +22,6 @@ K = zeros(numnp,numnp);
 f = zeros(numnp,1); 
 
 
-
-
-
-
-
-
-
 % Loop on elements
 for ielem = 1:numel
     % Te: global number of the nodes in the current element
