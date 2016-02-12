@@ -1,6 +1,6 @@
-clear, close all, home
+clear; close all; home;
 
-global diffusion  h 
+global diffusion  %h 
 
 disp(' ')
 disp('This program solves a diffusion equation for the given domain.')
@@ -88,10 +88,13 @@ wpg=integrationweights(nelnodes,n,ncoord);
 
 %For each element the shape function and its derivative is calculated, and
 %stored in matrix form.
+N=zeros(n,nelnodes);
+dNdxi=zeros(n*ncoord,nelnodes);   
+
 for i1=1:n
-    Ne=shapefunctions(nelnodes,pospg,ncoord,i1);    %% this function didn't know the iteration step, thus evaluated pospg always at the same point
+    Ne=shapefunctions(nelnodes,pospg,ncoord,i1);    
     N(i1,:)=Ne(:);
-    dNdxie=shapefunctionderivs(nelnodes,ncoord,pospg,i1); %% same for this one, added i1
+    dNdxie=shapefunctionderivs(nelnodes,ncoord,pospg,i1); 
     if ncoord==2
     for i2=1:nelnodes
         dNdxi(i2,i1*2-1) =dNdxie(i2,1);
@@ -99,19 +102,15 @@ for i1=1:n
     end
     elseif ncoord==3
       for i2=1:nelnodes
-        dNdxi(i2,i1*3-2) =dNdxie(i2,1);
-        dNdxi(i2,i1*3-1)   =dNdxie(i2,2);
-        dNdxi(i2,i1*3)   =dNdxie(i2,3);
-    end   
+        dNdxi(i1*3-2,i2) =dNdxie(i2,1);
+        dNdxi(i1*3-1,i2)   =dNdxie(i2,2);
+        dNdxi(i1*3,i2)   =dNdxie(i2,3);
+      end   
     end
-    
     
 end
 
 
-%Transpose (just to make it work in CreateMatrix function
-%N=N';          %No need to transpose it now
-dNdxi=dNdxi' ;   % still need to transpose it, maybe tranpose it by components on lines 131-133
 
 
 % SYSTEM RESULTING OF DISCRETIZING THE WEAK FORM
@@ -147,5 +146,6 @@ disp('Open file: MyParaviewFile.vtk using Paraview')
 % Clear of variables 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-clearvars Ne h i1 i2 iname name diffusion_in N dNdxi dNdxie Tin Xin ans n b wpg pospg ncoord neq nelnodes
+clearvars Ne h i1 i2 iname name diffusion_in N dNdxi dNdxie Tin Xin ...
+ans n b wpg pospg ncoord neq nelnodes
 

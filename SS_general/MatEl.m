@@ -9,7 +9,7 @@ function [Ke,fe] = MatEl(Xe,nnode,pospg,wpg,N,dNdxi,ncoord)
 %               on the Gauss points
 % 
 
-global diffusion  h  
+global diffusion  %h  
  
 nu = diffusion;
 

@@ -8,9 +8,9 @@ function [K,f] = CreateMatrix(X,T,pospg,pespg,N,dNdxi,ncoord)
 % N,Nxi,Neta:   shape functions on the Gauss points 
 
 
-global diffusion  h  
+%global diffusion  %h  
 
-nu = diffusion;
+%nu = diffusion;
 
 % Total number of elements and number of nodes in aech one
 [numel,nen] = size(T);

@@ -6,7 +6,7 @@ nnode = length(X);
 nelem = length(T);
 
 % printing heading to file
-f=fopen(strcat('Post/', name, '.vtk'),'w');
+f=fopen(strcat('results/', name, '.vtk'),'w');
 fprintf(f,'# vtk DataFile Version 1.0\n');
 fprintf(f,'ECM-CELL DIFFUSION-MECHANICS\n');
 fprintf(f,'ASCII\n');
