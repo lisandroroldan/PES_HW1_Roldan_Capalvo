@@ -69,8 +69,8 @@ for i1=1:n
     dNdxie=shapefunctionderivs(nelnodes,ncoord,pospg,i1); 
     if ncoord==2
     for i2=1:nelnodes
-        dNdxi(i2,i1*2-1) =dNdxie(i2,1);
-        dNdxi(i2,i1*2)   =dNdxie(i2,2);
+        dNdxi(i1*2-1,i2) =dNdxie(i2,1);
+        dNdxi(i1*2,i2)   =dNdxie(i2,2);
     end
     elseif ncoord==3
       for i2=1:nelnodes
