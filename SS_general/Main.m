@@ -8,7 +8,8 @@ disp('Diffusion coeficient, geometry and BC imported from data files.');
 disp(' ')
 
 %Reading input file
-iname = input('Input name ','s');
+disp('Example input name: Problem1');
+iname = input('Input name :','s');
 Xa = load(strcat('model/', iname, '_nodes'));
 Ta = load(strcat('elements/', iname, '_elements'));
 Inlet = importdata(strcat('model/', iname, '_groups'),',',1);
@@ -106,10 +107,10 @@ toc; %Read stopwatch
 % POSTPROCESS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-name = input('output name : ','s');
+name = input('Output name : ','s');
 postprocess(X,T,ncoord,type,f,Temp,name);
 
-disp('Open file: MyParaviewFile.vtk using Paraview')
+disp('Open .vtk file in folder "result" using Paraview')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Clear of variables 
