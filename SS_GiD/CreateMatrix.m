@@ -18,8 +18,8 @@ nu = diffusion;
 numnp = size(X,1); 
  
 % Allocate storage
-K = zeros(numnp,numnp); 
 f = zeros(numnp,1); 
+K=spalloc(numnp,numnp,10*numnp);
 
 
 % Loop on elements

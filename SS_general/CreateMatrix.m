@@ -18,7 +18,7 @@ function [K,f] = CreateMatrix(X,T,pospg,pespg,N,dNdxi,ncoord)
 numnp = size(X,1); 
  
 % Allocate storage
-K = zeros(numnp,numnp); 
+K=spalloc(numnp,numnp,10*numnp);
 f = zeros(numnp,1); 
 
 
