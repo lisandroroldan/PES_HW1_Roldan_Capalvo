@@ -83,26 +83,37 @@ for i1=1:n
     
 end
 
+%count
+ndir = size(C,1);
+ndifzero=0;
+for i=1:size(X,1)
+    [row,col]=find(T == i);
+    ndifzero=ndifzero+length(unique(reshape(T(row,:),[],1)));
+    clear row, clear col
+end
+ndifzero=ndifzero+2*ndir;
 
 % SYSTEM RESULTING OF DISCRETIZING THE WEAK FORM
-[K,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi,ncoord);
+[Ktot,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi,ncoord,ndifzero);
 
 % Setting of variables needed for lagrange multiplier method
-ndir = size(C,1);
 neq  = size(f,1);
-A = zeros(ndir,neq);
+A=spalloc(ndir,neq,ndir);
+%A = zeros(ndir,neq);
 A(:,C(:,1)) = eye(ndir);
 b = C(:,2);
 
 % SOLUTION OF THE LINEAR SYSTEM
 % Entire matrix
-Ktot = [K A';A zeros(ndir,ndir)];
+
+Ktot = [Ktot A';A zeros(ndir,ndir)];
 ftot = [f;b];
 
 sol = Ktot\ftot;
 Temp = sol(1:neq);
 multip = sol(neq+1:end);
 toc; %Read stopwatch
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % POSTPROCESS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

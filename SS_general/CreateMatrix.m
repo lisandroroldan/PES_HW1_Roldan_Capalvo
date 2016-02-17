@@ -1,4 +1,4 @@
-function [K,f] = CreateMatrix(X,T,pospg,pespg,N,dNdxi,ncoord) 
+function [K,f] = CreateMatrix(X,T,pospg,pespg,N,dNdxi,ncoord,ndifzero) 
 % Stiffness matrix K and r.h.s vector f 
 % obtained by discretizing a heat equation
 % 
@@ -18,7 +18,7 @@ function [K,f] = CreateMatrix(X,T,pospg,pespg,N,dNdxi,ncoord)
 numnp = size(X,1); 
  
 % Allocate storage
-K=spalloc(numnp,numnp,10*numnp);
+K=spalloc(numnp,numnp,ndifzero);
 f = zeros(numnp,1); 
 
 
