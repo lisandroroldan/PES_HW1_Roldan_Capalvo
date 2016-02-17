@@ -110,23 +110,31 @@ for i1=1:n
     
 end
 
-
+%count
+ndir = size(C.data,1);
+ndifzero=0;
+for i=1:size(X,1)
+    [row,col]=find(T == i);
+    ndifzero=ndifzero+length(unique(reshape(T(row,:),[],1)));
+    clear row, clear col
+end
+ndifzero=ndifzero+2*ndir;
 
 
 % SYSTEM RESULTING OF DISCRETIZING THE WEAK FORM
-[K,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi,ncoord);
+[Ktot,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi,ncoord,ndifzero);
 
 % Setting of variables needed for lagrange multiplier method
-ndir = size(C.data,1);
+
 neq  = size(f,1);
-A = zeros(ndir,neq);
+A=spalloc(ndir,neq,ndir);
 A(:,C.data(:,1)) = eye(ndir);
 b = C.data(:,2);
 
 
 % SOLUTION OF THE LINEAR SYSTEM
 % Entire matrix
-Ktot = [K A';A zeros(ndir,ndir)];
+Ktot = [Ktot A';A zeros(ndir,ndir)];
 ftot = [f;b];
 
 sol = Ktot\ftot;
@@ -147,5 +155,5 @@ disp('Open file: MyParaviewFile.vtk using Paraview')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clearvars Ne h i1 i2 iname name diffusion_in N dNdxi dNdxie Tin Xin ...
-ans n b wpg pospg ncoord neq nelnodes
+ans n b wpg pospg ncoord neq nelnodes i
 

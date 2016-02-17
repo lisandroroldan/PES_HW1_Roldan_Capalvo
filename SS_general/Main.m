@@ -128,6 +128,6 @@ disp('Open .vtk file in folder "result" using Paraview')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clearvars Ne h i1 i2 iname name diffusion_in N dNdxi dNdxie Tin Xin ...
-ans n b wpg pospg ncoord neq nelnodes
+ans n b wpg pospg ncoord neq nelnodes i
 
 
