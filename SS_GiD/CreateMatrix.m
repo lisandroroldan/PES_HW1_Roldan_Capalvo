@@ -19,7 +19,7 @@ numnp = size(X,1);
  
 % Allocate storage
 f = zeros(numnp,1); 
-K=spalloc(numnp,numnp,ndifzero);
+K=spalloc(numnp,numnp,ndifzero); %redefined as sparce
 
 
 % Loop on elements

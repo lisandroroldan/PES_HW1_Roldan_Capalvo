@@ -18,16 +18,8 @@ function [K,f] = CreateMatrix(X,T,pospg,pespg,N,dNdxi,ncoord,ndifzero)
 numnp = size(X,1); 
  
 % Allocate storage
-K=spalloc(numnp,numnp,ndifzero);
+K=spalloc(numnp,numnp,ndifzero); %redefined as sparce
 f = zeros(numnp,1); 
-
-
-
-
-
-
-
-
 
 % Loop on elements
 for ielem = 1:numel

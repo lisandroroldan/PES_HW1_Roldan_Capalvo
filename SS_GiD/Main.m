@@ -1,7 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%             Programming for E&S            %
+%     Homework 1 - GiD Problem type solver   %
+%       Lisandro Roldan & Albert Capalvo     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 clear; close all; home;
+global diffusion
 
-global diffusion  %h 
-
+%Welcome message
 disp(' ')
 disp('This program solves a diffusion equation for the given domain.')
 disp('No source term is considered.');
@@ -9,8 +15,8 @@ disp('Diffusion coeficient, geometry and BC imported from data files.');
 disp(' ')
 
 %Import of Nodal coodrinates, conectivity, difusivity and Boundary conditions
+disp('Input name example: redefined')
 iname = input('input name : ','s');
-
 header = importdata(iname,' ',1);
 Xin= importdata(iname,' ',6);
 Tin= importdata(iname,' ',header.data(2)+7);
@@ -48,7 +54,8 @@ otherwise
 end
 
 
-tic;
+tic; %start stopwatch
+
 % NUMERICAL INTEGRATION
 %ncoord= Number of coordinates (2D=2, 3D=3)
 %Number of nodes per element
@@ -90,18 +97,17 @@ wpg=integrationweights(nelnodes,n,ncoord);
 %stored in matrix form.
 N=zeros(n,nelnodes);
 dNdxi=zeros(n*ncoord,nelnodes);   
-
-for i1=1:n
+for i1=1:n %Loop in nodes
     Ne=shapefunctions(nelnodes,pospg,ncoord,i1);    
     N(i1,:)=Ne(:);
     dNdxie=shapefunctionderivs(nelnodes,ncoord,pospg,i1); 
     if ncoord==2
-    for i2=1:nelnodes
+    for i2=1:nelnodes %Loop in integration points
         dNdxi(i1*2-1,i2) =dNdxie(i2,1);
         dNdxi(i1*2,i2)   =dNdxie(i2,2);
     end
     elseif ncoord==3
-      for i2=1:nelnodes
+      for i2=1:nelnodes %Loop in integration points
         dNdxi(i1*3-2,i2) =dNdxie(i2,1);
         dNdxi(i1*3-1,i2)   =dNdxie(i2,2);
         dNdxi(i1*3,i2)   =dNdxie(i2,3);
@@ -110,7 +116,7 @@ for i1=1:n
     
 end
 
-%count
+%Calculation of sparse matrix non-zero elements for the global K
 ndir = size(C.data,1);
 ndifzero=0;
 for i=1:size(X,1)
@@ -125,35 +131,30 @@ ndifzero=ndifzero+2*ndir;
 [Ktot,f] = CreateMatrix(X,T,pospg,wpg,N,dNdxi,ncoord,ndifzero);
 
 % Setting of variables needed for lagrange multiplier method
-
 neq  = size(f,1);
-A=spalloc(ndir,neq,ndir);
+A=spalloc(ndir,neq,ndir); %redefined as sparse
 A(:,C.data(:,1)) = eye(ndir);
 b = C.data(:,2);
 
 
-% SOLUTION OF THE LINEAR SYSTEM
+% SOLUTION OF THE LINEAR SYSTEM (using Lagrange multipliers)
 % Entire matrix
 Ktot = [Ktot A';A zeros(ndir,ndir)];
 ftot = [f;b];
-
 sol = Ktot\ftot;
 Temp = sol(1:neq);
 multip = sol(neq+1:end);
-toc;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% POSTPROCESS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+toc; %read stopwatch
+
+
+% Generation of the visualization file
 name = input('output name : ','s');
 postprocess(X,T,ncoord,type,f,Temp,name);
-
 disp('Open file: MyParaviewFile.vtk using Paraview')
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Clear of variables 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Clear of variables 
 clearvars Ne h i1 i2 iname name diffusion_in N dNdxi dNdxie Tin Xin ...
 ans n b wpg pospg ncoord neq nelnodes i
 
